@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import './App.css';
 import {getAuth, onAuthStateChanged} from "firebase/auth";
 import SignIn from "./SignIn/SignIn";
 import FormList from "./FormList";
