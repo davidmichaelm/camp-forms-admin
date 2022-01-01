@@ -1,10 +1,11 @@
-import {CardHeader, Divider, Card, CardContent, Grid} from "@mui/material";
+import {CardHeader, Divider, Card, CardContent, Grid, Button, Typography} from "@mui/material";
 import FormList from "./components/FormList";
 import SubmissionList from "./components/SubmissionList";
 import SubmissionFields from "./components/SubmissionFields";
 import React, {useState} from "react";
 
-const Dashboard = () => {
+const Dashboard = (props) => {
+    const {onSignOut} = props;
     const [formSelected, setFormSelected] = useState();
     const [submissionSelected, setSubmissionSelected] = useState();
 
@@ -18,7 +19,13 @@ const Dashboard = () => {
                 display: "flex",
                 flexDirection: "column"
             }}>
-                <CardHeader title="Camp Phillip Forms Admin"/>
+                <CardHeader
+                    title="Camp Phillip Forms Admin"
+                    titleTypographyProps={{sx: {lineHeight: 1}}}
+                    action={<Button variant={"contained"} onClick={onSignOut}>
+                        Log Out
+                    </Button>}
+                />
                 <Divider/>
                 <CardContent
                     sx={{display: "flex", flexDirection: "row", height: "100%", p: 0, '&:last-child': {p: 0}}}>

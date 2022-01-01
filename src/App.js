@@ -19,11 +19,19 @@ function App() {
     }, []);
 
     return (
-        <Grid container style={{ height: "100%", display: "flex", alignItems: "stretch", background: "lightgray"}}>
+        <Grid
+            container
+            style={{
+                height: "100%",
+                display: "flex",
+                alignItems: "stretch",
+                background: "url(./sign-in-background.jpg) center",
+                backgroundSize: "cover"
+            }}>
             {!loading &&
                 <>
                     {!isSignedIn && <SignIn/>}
-                    {isSignedIn && <Dashboard/>}
+                    {isSignedIn && <Dashboard onSignOut={() => auth.signOut()}/>}
                 </>
             }
         </Grid>
