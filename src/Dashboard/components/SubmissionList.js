@@ -1,10 +1,10 @@
-import {collection, getDocs} from "firebase/firestore";
+import {collection, getDocs, doc, getDoc} from "firebase/firestore";
 import {db} from "../../firebase";
 import {useEffect, useState} from "react";
 import DashboardColumn from "./DashboardColumn";
 
 const SubmissionList = (props) => {
-    const {formIdSelected, onSubmissionSelected, submissionSelected} = props;
+    const {formIdSelected, onSubmissionSelected, submissionIdSelected} = props;
     const [submissions, setSubmissions] = useState([]);
 
     const handleSubmissionSelected = (submissionId) => {
@@ -35,7 +35,7 @@ const SubmissionList = (props) => {
             title="Submissions"
             list={submissions}
             onItemSelected={handleSubmissionSelected}
-            itemSelected={submissionSelected?.id}/>
+            itemSelected={submissionIdSelected}/>
     );
 };
 

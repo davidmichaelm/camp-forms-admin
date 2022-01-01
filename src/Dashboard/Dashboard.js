@@ -23,17 +23,20 @@ const Dashboard = () => {
                 <CardContent
                     sx={{display: "flex", flexDirection: "row", height: "100%", p: 0, '&:last-child': {p: 0}}}>
                     <FormList
-                        formIdSelected={formSelected}
-                        onFormSelected={(formId) => setFormSelected(formId)}
+                        formIdSelected={formSelected?.id}
+                        onFormSelected={(form) => setFormSelected(form)}
                     />
                     <Divider orientation="vertical"/>
                     <SubmissionList
-                        formIdSelected={formSelected}
+                        formIdSelected={formSelected?.id}
                         onSubmissionSelected={(submission) => setSubmissionSelected(submission)}
-                        submissionSelected={submissionSelected}
+                        submissionIdSelected={submissionSelected?.id}
                     />
                     <Divider orientation="vertical"/>
-                    <SubmissionFields submission={submissionSelected}/>
+                    <SubmissionFields
+                        submission={submissionSelected}
+                        formSchema={formSelected?.schema}
+                    />
                 </CardContent>
             </Card>
         </Grid>

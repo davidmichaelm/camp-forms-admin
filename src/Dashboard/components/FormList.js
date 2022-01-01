@@ -7,6 +7,10 @@ const FormList = (props) => {
     const {onFormSelected, formIdSelected} = props;
     const [forms, setForms] = useState([]);
 
+    const handleFormSelected = (formId) => {
+        onFormSelected(forms.find(f => f.id === formId));
+    };
+
     useEffect(() => {
         const getForms = async () => {
             const data = [];
@@ -24,7 +28,7 @@ const FormList = (props) => {
     }, []);
 
     return (
-        <DashboardColumn title="Forms" list={forms} onItemSelected={onFormSelected} itemSelected={formIdSelected} />
+        <DashboardColumn title="Forms" list={forms} onItemSelected={handleFormSelected} itemSelected={formIdSelected} />
     );
 };
 

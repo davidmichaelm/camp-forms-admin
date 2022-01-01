@@ -10,7 +10,7 @@ const DashboardColumn = (props) => {
             <Table>
                 <TableHead>
                     <TableRow hover>
-                        <TableCell sx={{background: "#fafafa", py: 1}}>
+                        <TableCell sx={{background: theme.palette.grey["50"], py: 1}}>
                             <Typography variant="body" color={theme.palette.grey["700"]}>{title}</Typography>
                         </TableCell>
                     </TableRow>
