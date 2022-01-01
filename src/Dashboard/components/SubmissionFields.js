@@ -1,12 +1,14 @@
+import {Box} from "@mui/material";
+
 const SubmissionFields = (props) => {
     const { submission } = props;
 
     return (
-        <div>
+        <Box sx={{ width: "100%"}}>
             {submission && Object.keys(submission).map(field => {
-                return <div>{submission[field]}</div>
+                return <Box key={field}>{submission[field]}</Box>
             })}
-        </div>
+        </Box>
     );
 }
 

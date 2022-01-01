@@ -1,15 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import {getAuth, onAuthStateChanged} from "firebase/auth";
 import SignIn from "./SignIn/SignIn";
-import FormList from "./FormList";
-import SubmissionList from "./SubmissionList";
-import SubmissionFields from "./SubmissionFields";
+import Dashboard from "./Dashboard/Dashboard";
+import {Grid} from "@mui/material";
 
 function App() {
     const [isSignedIn, setIsSignedIn] = useState(false);
     const [loading, setLoading] = useState(true);
-    const [formSelected, setFormSelected] = useState();
-    const [submissionSelected, setSubmissionSelected] = useState();
 
     const auth = getAuth();
 
@@ -22,20 +19,14 @@ function App() {
     }, []);
 
     return (
-        <main>
+        <Grid container style={{ height: "100%", display: "flex", alignItems: "stretch", background: "lightgray"}}>
             {!loading &&
                 <>
                     {!isSignedIn && <SignIn/>}
-                    {isSignedIn &&
-                        <>
-                            <FormList onFormSelected={(formId) => setFormSelected(formId)}/>
-                            <SubmissionList formSelected={formSelected} onSubmissionSelected={(submissionId) => setSubmissionSelected(submissionId)}/>
-                            <SubmissionFields submission={submissionSelected}/>
-                        </>
-                    }
+                    {isSignedIn && <Dashboard/>}
                 </>
             }
-        </main>
+        </Grid>
     );
 }
 

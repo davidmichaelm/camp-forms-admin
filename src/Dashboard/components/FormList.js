@@ -1,9 +1,10 @@
 import {useEffect, useState} from "react";
 import {collection, getDocs} from "firebase/firestore";
-import {db} from "./firebase";
+import {db} from "../../firebase";
+import DashboardColumn from "./DashboardColumn";
 
 const FormList = (props) => {
-    const { onFormSelected } = props;
+    const {onFormSelected, formIdSelected} = props;
     const [forms, setForms] = useState([]);
 
     useEffect(() => {
@@ -23,14 +24,7 @@ const FormList = (props) => {
     }, []);
 
     return (
-        <>
-            <h1>Forms</h1>
-            <div>
-                {forms.map(form =>
-                    <span key={form.id} onClick={() => onFormSelected(form.id)}>{form.name}</span>
-                )}
-            </div>
-        </>
+        <DashboardColumn title="Forms" list={forms} onItemSelected={onFormSelected} itemSelected={formIdSelected} />
     );
 };
 
