@@ -1,11 +1,10 @@
-import {Box, Typography, Table, TableBody, TableHead, TableRow, TableCell, useTheme} from "@mui/material";
+import {Box, Typography, Table, TableBody, TableHead, TableRow, TableCell, useTheme, Button} from "@mui/material";
 import React from "react";
 
 const SubmissionFields = (props) => {
     const {submission, formSchema} = props;
     const theme = useTheme();
 
-    console.log(formSchema)
     return (
         <Box sx={{width: "100%"}}>
             {submission && formSchema?.map(step => (
@@ -24,7 +23,7 @@ const SubmissionFields = (props) => {
                                 <TableCell sx={{py: 1, width: "25%"}}>
                                     <Typography fontWeight="bold" variant="body">{input.label}</Typography>
                                 </TableCell>
-                                <TableCell sx={{py: 1}}>
+                                <TableCell sx={{py: 1, verticalAlign: "top"}}>
                                     {submission[input.name]}
                                 </TableCell>
                             </TableRow>

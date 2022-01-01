@@ -1,12 +1,18 @@
 import {Box, Typography, Table, TableHead, TableBody, TableRow, TableCell, useTheme} from "@mui/material";
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
+const hoverStyle = {
+    '&:hover': {
+        cursor: "pointer"
+    }
+}
+
 const DashboardColumn = (props) => {
-    const {title, list, onItemSelected, itemSelected} = props;
+    const {title, list, onItemSelected, itemSelected, children} = props;
     const theme = useTheme();
 
     return (
-        <Box sx={{height: "100%", width: 400}}>
+        <Box sx={{height: "100%", width: 400, display: "flex", flexDirection: "column", justifyContent: "space-between"}}>
             <Table>
                 <TableHead>
                     <TableRow hover>
@@ -18,7 +24,11 @@ const DashboardColumn = (props) => {
                 <TableBody>
                     {list?.map(item => {
                         return (
-                            <TableRow hover onClick={() => onItemSelected(item.id)} key={item.id}>
+                            <TableRow
+                                hover
+                                sx={{...hoverStyle}}
+                                onClick={() => onItemSelected(item.id)} key={item.id}
+                            >
                                 <TableCell
                                     sx={{
                                         py: 1,
@@ -38,6 +48,7 @@ const DashboardColumn = (props) => {
                     })}
                 </TableBody>
             </Table>
+            {children}
         </Box>
     );
 }
