@@ -4,6 +4,7 @@ import React, {useEffect, useState} from "react";
 import {collection, getDocs} from "firebase/firestore";
 import {db} from "../firebase";
 import DashboardColumn from "./components/DashboardColumn";
+import {downloadCsv} from "../downloadCsv";
 
 const Dashboard = (props) => {
     const {onSignOut} = props;
@@ -15,6 +16,8 @@ const Dashboard = (props) => {
     const [submissions, setSubmissions] = useState([]);
     const [submissionIdSelected, setSubmissionIdSelected] = useState();
     const submissionSelected = submissions.find(submission => submission.id === submissionIdSelected);
+
+    const [csvError, setCsvError] = useState(false);
 
     useEffect(() => {
         const getForms = async () => {
@@ -52,7 +55,7 @@ const Dashboard = (props) => {
     }, [formIdSelected]);
 
     const onDownloadCsv = () => {
-
+        downloadCsv(submissions, formSelected.schema);
     };
 
     return (

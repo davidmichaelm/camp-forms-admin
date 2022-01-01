@@ -1,21 +1,29 @@
 import {parse} from "json2csv";
 import fileDownload from 'js-file-download';
 
-const downloadCsv = (data, fields) => {
-    const myData = {
-        field1: "asdf",
-        field2: "qewr",
-        field3: "zxcv"
-    }
+export const downloadCsv = (data, schema) => {
+    const fields = getCsvFields(schema);
     const opts = { fields };
 
     try {
-        const csv = parse(myData, opts);
-        console.log(csv);
+        const csv = parse(data, opts);
         fileDownload(csv, "data.csv");
     } catch (err) {
         console.error(err);
     }
 };
 
-export default downloadCsv;
+export const getCsvFields = (schema) => {
+    return schema.reduce((previousValue, currentStep) => {
+        let inputs;
+        if (currentStep.inputs) {
+            inputs = currentStep.inputs;
+        } else if (currentStep.substeps) {
+            inputs = currentStep.substeps.map(substep => substep.inputs).flat();
+        } else {
+            return previousValue;
+        }
+        const fields = inputs.map(input => ({label: input.label, value: input.name}));
+        return [...previousValue, ...fields];
+    }, []);
+};
