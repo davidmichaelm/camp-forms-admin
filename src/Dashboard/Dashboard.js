@@ -1,4 +1,4 @@
-import {CardHeader, Divider, Card, CardContent, Grid, Button} from "@mui/material";
+import {CardHeader, Divider, Card, CardContent, Grid, Button, Box} from "@mui/material";
 import SubmissionFields from "./components/SubmissionFields";
 import React, {useEffect, useState} from "react";
 import {collection, getDocs} from "firebase/firestore";
@@ -17,7 +17,22 @@ const Dashboard = (props) => {
     const [submissionIdSelected, setSubmissionIdSelected] = useState();
     const submissionSelected = submissions.find(submission => submission.id === submissionIdSelected);
 
-    const [csvError, setCsvError] = useState(false);
+    const handleFormIdSelected = (formId) => {
+        const value = formId === formIdSelected
+            ? null
+            : formId;
+
+        setFormIdSelected(value);
+        setSubmissionIdSelected(null);
+    };
+
+    const handleSubmissionIdSelected = (submissionId) => {
+        const value = submissionId === submissionIdSelected
+            ? null
+            : submissionId;
+
+        setSubmissionIdSelected(value);
+    }
 
     useEffect(() => {
         const getForms = async () => {
@@ -81,25 +96,32 @@ const Dashboard = (props) => {
                     <DashboardColumn
                         title="Forms"
                         list={forms}
-                        onItemSelected={setFormIdSelected}
+                        onItemSelected={handleFormIdSelected}
                         itemSelected={formIdSelected}
                     />
                     <Divider orientation="vertical"/>
-                    <DashboardColumn
-                        title="Submissions"
-                        list={submissions}
-                        onItemSelected={setSubmissionIdSelected}
-                        itemSelected={submissionIdSelected}
-                    >
-                        {formIdSelected &&
-                            <Button onClick={onDownloadCsv}>Download as CSV</Button>
-                        }
-                    </DashboardColumn>
+                    {formIdSelected &&
+                        <DashboardColumn
+                            title="Submissions"
+                            list={submissions}
+                            onItemSelected={handleSubmissionIdSelected}
+                            itemSelected={submissionIdSelected}
+                        >
+                            {formIdSelected &&
+                                <Button onClick={onDownloadCsv}>Download as CSV</Button>
+                            }
+                        </DashboardColumn>
+                    }
                     <Divider orientation="vertical"/>
-                    <SubmissionFields
-                        submission={submissionSelected}
-                        formSchema={formSelected?.schema}
-                    />
+                    {submissionIdSelected
+                        ? <SubmissionFields
+                            submission={submissionSelected}
+                            formSchema={formSelected?.schema}
+                        />
+                        : <Box sx={{ width: "100%", display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center"}}>
+                            <img src="./camp-logo.png" width={200} height="auto" />
+                        </Box>
+                    }
                 </CardContent>
             </Card>
         </Grid>

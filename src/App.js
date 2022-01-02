@@ -3,6 +3,15 @@ import {getAuth, onAuthStateChanged} from "firebase/auth";
 import SignIn from "./SignIn/SignIn";
 import Dashboard from "./Dashboard/Dashboard";
 import {Grid} from "@mui/material";
+import {createTheme, ThemeProvider} from "@mui/material";
+
+const theme = createTheme({
+    palette: {
+        primary: {
+            main: '#0c726c',
+        },
+    },
+});
 
 function App() {
     const [isSignedIn, setIsSignedIn] = useState(false);
@@ -19,22 +28,24 @@ function App() {
     }, []);
 
     return (
-        <Grid
-            container
-            style={{
-                height: "100%",
-                display: "flex",
-                alignItems: "stretch",
-                background: "url(./sign-in-background.jpg) center",
-                backgroundSize: "cover"
-            }}>
-            {!loading &&
-                <>
-                    {!isSignedIn && <SignIn/>}
-                    {isSignedIn && <Dashboard onSignOut={() => auth.signOut()}/>}
-                </>
-            }
-        </Grid>
+        <ThemeProvider theme={theme}>
+            <Grid
+                container
+                style={{
+                    height: "100%",
+                    display: "flex",
+                    alignItems: "stretch",
+                    background: "url(./sign-in-background.jpg) center",
+                    backgroundSize: "cover"
+                }}>
+                {!loading &&
+                    <>
+                        {!isSignedIn && <SignIn/>}
+                        {isSignedIn && <Dashboard onSignOut={() => auth.signOut()}/>}
+                    </>
+                }
+            </Grid>
+        </ThemeProvider>
     );
 }
 

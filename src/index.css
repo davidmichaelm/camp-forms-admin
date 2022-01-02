@@ -22,3 +22,15 @@ body {
 #root {
   height: 100%;
 }
+
+.firebaseui-button {
+  background-color: #0c726c !important;
+}
+
+.firebaseui-button:hover {
+  background-color: rgb(8, 79, 75) !important;
+}
+
+.firebaseui-textfield.mdl-textfield .firebaseui-label::after {
+  background-color: #0c726c !important;
+}

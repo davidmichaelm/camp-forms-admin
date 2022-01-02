@@ -12,7 +12,7 @@ const DashboardColumn = (props) => {
     const theme = useTheme();
 
     return (
-        <Box sx={{height: "100%", width: 400, display: "flex", flexDirection: "column", justifyContent: "space-between"}}>
+        <Box sx={{height: "100%", width: 300, flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "space-between"}}>
             <Table>
                 <TableHead>
                     <TableRow hover>
