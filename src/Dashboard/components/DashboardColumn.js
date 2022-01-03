@@ -33,13 +33,13 @@ const DashboardColumn = (props) => {
                                     sx={{
                                         py: 1,
                                         border: "none",
-                                        background: itemSelected ? theme.palette.grey["200"] : "",
+                                        background: itemSelected === item.id ? theme.palette.grey["200"] : "",
                                         display: "flex",
                                         flexDirection: "row"
                                     }}
                                 >
                                     {item.label}
-                                    {itemSelected &&
+                                    {itemSelected === item.id &&
                                         <ArrowForwardIosIcon fontSize="small" color="disabled" sx={{ml: "auto"}}/>
                                     }
                                 </TableCell>
