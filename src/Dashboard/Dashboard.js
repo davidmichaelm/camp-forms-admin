@@ -1,6 +1,6 @@
 import {CardHeader, Divider, Card, CardContent, Grid, Button, Box} from "@mui/material";
 import SubmissionFields from "./components/SubmissionFields";
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {collection, getDocs} from "firebase/firestore";
 import {db} from "../firebase";
 import DashboardColumn from "./components/DashboardColumn";
@@ -16,6 +16,12 @@ const Dashboard = (props) => {
     const [submissions, setSubmissions] = useState([]);
     const [submissionIdSelected, setSubmissionIdSelected] = useState();
     const submissionSelected = submissions.find(submission => submission.id === submissionIdSelected);
+
+    const cardContentRef = useRef(null);
+    const [cardContentHeight, setCardContentHeight] = useState();
+    useEffect(() => {
+        setCardContentHeight(cardContentRef?.current?.clientHeight)
+    }, []);
 
     const handleFormIdSelected = (formId) => {
         const value = formId === formIdSelected
@@ -92,7 +98,9 @@ const Dashboard = (props) => {
                 />
                 <Divider/>
                 <CardContent
-                    sx={{display: "flex", flexDirection: "row", height: "100%", p: 0, '&:last-child': {p: 0}}}>
+                    sx={{display: "flex", flexDirection: "row", height: "100%", p: 0, '&:last-child': {p: 0}}}
+                    ref={cardContentRef}
+                >
                     <DashboardColumn
                         title="Forms"
                         list={forms}
@@ -117,9 +125,10 @@ const Dashboard = (props) => {
                         ? <SubmissionFields
                             submission={submissionSelected}
                             formSchema={formSelected?.schema}
+                            parentHeight={cardContentHeight}
                         />
                         : <Box sx={{ width: "100%", display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center"}}>
-                            <img src="./camp-logo.png" width={200} height="auto" />
+                            <img alt="Camp Phillip Logo" src={"./camp-logo.png"} width={200} height="auto" />
                         </Box>
                     }
                 </CardContent>
