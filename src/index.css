@@ -25,6 +25,7 @@ body {
 
 .firebaseui-button {
   background-color: #0c726c !important;
+  color: white !important;
 }
 
 .firebaseui-button:hover {
