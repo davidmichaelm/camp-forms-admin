@@ -36,7 +36,10 @@ exports.createSubmission = functions.firestore
 
             const msg = {
                 to: userEmails,
-                from: 'forms@davidmarquardt.dev',
+                from: {
+                    email: 'forms@davidmarquardt.dev',
+                    name: 'Camp Phillip Forms'
+                },
                 subject: 'Camp Phillip Form Submission Received',
                 text: `Hello,\n\nA new submission has been received for the ${formLabel} form.\n\nVisit the Camp Phillip Forms Admin at https://camp-forms-admin.vercel.app/ to view the submission.`
             };
