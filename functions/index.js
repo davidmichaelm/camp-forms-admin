@@ -19,7 +19,7 @@ exports.createSubmission = functions.firestore
             }
 
             const formData = formSnapshot.data();
-            const formName = formData.name;
+            const formLabel = formData.label;
 
             const userCollection = db.collection('users')
             const userSnapshot = await userCollection.where('emails', 'array-contains', formId).get();
@@ -38,7 +38,7 @@ exports.createSubmission = functions.firestore
                 to: userEmails,
                 from: 'forms@davidmarquardt.dev',
                 subject: 'Camp Phillip Form Submission Received',
-                text: `Hello,\n\nA new submission has been received for the ${formName} form.\n\nVisit the Camp Phillip Forms Admin at https://camp-forms-admin.vercel.app/ to view the submission.`
+                text: `Hello,\n\nA new submission has been received for the ${formLabel} form.\n\nVisit the Camp Phillip Forms Admin at https://camp-forms-admin.vercel.app/ to view the submission.`
             };
 
             sgMail.setApiKey(functions.config().sendgrid.key);
