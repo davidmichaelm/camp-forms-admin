@@ -1,18 +1,21 @@
 import {StyledFirebaseAuth} from "react-firebaseui";
-import {EmailAuthProvider, getAuth} from "firebase/auth";
+import {EmailAuthProvider, getAuth, isSignInWithEmailLink} from "firebase/auth";
 import {Box, Typography} from "@mui/material";
 
 const SignIn = () => {
     const auth = getAuth();
 
     const uiConfig = {
-        signInFlow: 'popup',
+        signInFlow: isSignInWithEmailLink(auth, window.location.href) ? 'redirect' : 'popup',
         callbacks: {
             signInSuccessWithAuthResult: () => false,
         },
         signInOptions: [
-            EmailAuthProvider.PROVIDER_ID
-        ]
+            {
+                provider: EmailAuthProvider.PROVIDER_ID,
+                signInMethod: EmailAuthProvider.EMAIL_LINK_SIGN_IN_METHOD
+            }
+        ],
     };
 
     return (
